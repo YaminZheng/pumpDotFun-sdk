@@ -19,8 +19,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "20"
-          cache: 'yarn'
       
+      - name: Install Yarn
+        run: |
+          corepack enable
+          corepack prepare yarn@stable --activate
+          yarn set version stable
+          
+      - name: Configure Yarn
+        run: |
+          echo "nodeLinker: node-modules" > .yarnrc.yml
+          
       - name: Install dependencies
         run: yarn install
       
